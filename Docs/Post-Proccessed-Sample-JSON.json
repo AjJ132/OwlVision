@@ -1,0 +1,44 @@
+[
+  {
+    "userID": "UUID",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "temp-email@temp.com",
+    "phoneNumber": "123-456-7890",
+    "isAlumni": true,
+    "footballGamesAttended": 3,
+    "hasBookstorePurchases": false,
+    "hasDonated": true,
+    "isOnMailingList": true,
+    "dateJoinedMailingList": "2019-09-07",
+    "isCountyResident": true,
+    "distanceToCampuse": "10 (** Miles **)",
+    "isKSUParent": false,
+    "gamesAttended": [
+      {
+        "gameID": "UUID",
+        "gameDate": "2019-09-07",
+        "opponent": "Jax State"
+      },
+      {
+        "gameID": "UUID",
+        "gameDate": "2020-09-07",
+        "opponent": "Eeastern Kentucky"
+      },
+      {
+        "gameID": "UUID",
+        "gameDate": "2021-09-07",
+        "opponent": "Tennessee Tech"
+      }
+    ],
+    "children": [
+      {
+        "userID": "UUID",
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "email": "jado1234@students.kennesaw.edu",
+        "stillAttending": true
+      }
+    ]
+  }
+]
