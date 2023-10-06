@@ -8,7 +8,7 @@ CREATE TABLE GeneralUserPool
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    home_address VARCHAR(50) NOT NULL
+    home_address VARCHAR(150) NOT NULL
 );
 
 CREATE TABLE GroundTruth
@@ -18,7 +18,7 @@ CREATE TABLE GroundTruth
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    home_address VARCHAR(50) NOT NULL
+    home_address VARCHAR(150) NOT NULL
 );
 
 CREATE TABLE SessionTable
@@ -28,19 +28,19 @@ CREATE TABLE SessionTable
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    home_address VARCHAR(50) NOT NULL
+    home_address VARCHAR(150) NOT NULL
 );
 
 -- Merchandise Buyers Table
 CREATE TABLE MerchandiseBuyers
 (
-    buyerID SERIAL PRIMARY KEY,
-    firstName VARCHAR(50) NOT NULL,
-    lastName VARCHAR(50) NOT NULL,
-    purchaseDate DATE NOT NULL,
-    moneySpent DECIMAL(10,2) NOT NULL,
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    phone VARCHAR(50) NOT NULL
+    purchaseDate DATE NOT NULL,
+    moneySpent DECIMAL(10,2) NOT NULL
 );
 
 -- Parents of KSU Students

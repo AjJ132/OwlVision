@@ -10,11 +10,15 @@ def option_one():
 def option_two():
     print("You Selected Option 2 (Generate User Data).")
     print("\n")
-    from Data_Generation import generate_data_and_save_to_database  
+    from Data_Generation import generate_data_and_save_to_database 
+    generate_data_and_save_to_database() 
 
    
 def option_three():
-    print("You selected option 3.")
+    print("You selected option 3. (Initial Data Setup)")
+    print("\n")
+    from Initial_Data_Setup import initial_data_setup
+    initial_data_setup()
 
 
 def option_four():

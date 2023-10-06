@@ -12,11 +12,12 @@ def generate_data_and_save_to_database():
         print("Generating general pool data...")
         for _ in range(4000):  # Generate 4000 entries for general pool
             entry = {
+                'id': _,
                 'first_name': fake.first_name(),
                 'last_name': fake.last_name(),
                 'phone_number': fake.phone_number(),
                 'email': fake.email(),
-                'address': fake.address().replace('\n', ', ')
+                'home_address': fake.address().replace('\n', ', ')
             }
             data.append(entry)
 
@@ -31,11 +32,12 @@ def generate_data_and_save_to_database():
         print("Generating ground truth data...")
         for _ in range(100):  # Generate 100 entries for ground truth data
             entry = {
+                'id': _,
                 'first_name': fake.first_name(),
                 'last_name': fake.last_name(),
                 'phone_number': fake.phone_number(),
                 'email': fake.email(),
-                'address': fake.address().replace('\n', ', ')
+                'home_address': fake.address().replace('\n', ', ')
             }
             groundTruthData.append(entry)
 
@@ -74,4 +76,4 @@ def generate_data_and_save_to_database():
         return False
 
 
-# generate_data_and_save_to_database()
+#generate_data_and_save_to_database()
