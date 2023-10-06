@@ -1,4 +1,5 @@
 import sqlalchemy as db
+from sqlalchemy import text
 import pandas as pd
 import csv
 from faker import Faker
@@ -56,6 +57,7 @@ def generate_data_and_save_to_database():
         print("Saving general pool data to SQL database...")
         #first clear the table
         connection.execute("DELETE FROM generaluserpool")
+        
         df = pd.read_csv('GeneralPool1.csv')
         df.to_sql('generaluserpool', con=engine,
                   if_exists='replace', index=False)
@@ -76,4 +78,4 @@ def generate_data_and_save_to_database():
         return False
 
 
-#generate_data_and_save_to_database()
+generate_data_and_save_to_database()
