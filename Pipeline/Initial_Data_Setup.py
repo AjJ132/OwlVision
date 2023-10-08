@@ -2,7 +2,7 @@ import sqlalchemy as db
 import pandas as pd
 import random
 from faker import Faker
-from datetime import datetime
+from datetime import date 
 
 fake = Faker()
 
@@ -230,45 +230,45 @@ def perform_operations(engine):
     for index, row in previous_ticket_buyers_df.iterrows():
         #potential game dates
         potential_dates = [
-            "Aug 31, 2023",
-            "Sep 16, 2023",
-            "Oct 7, 2023",
-            "Oct 28, 2023",
-            "Aug 31, 2019",
-            "Sep 21, 2019",
-            "Oct 12, 2019",
-            "Oct 19, 2019",
-            "Nov 9, 2019",
-            "Nov 30, 2019",
-            "Oct 10, 2020",
-            "Oct 24, 2020",
-            "Nov 14, 2020",
-            "Sep 2, 2021",
-            "Oct 2, 2021",
-            "Oct 16, 2021",
-            "Oct 30, 2021",
-            "Sep 24, 2022",
-            "Oct 8, 2022",
-            "Oct 15, 2022",
-            "Oct 22, 2022",
-            "Oct 29, 2022",
-            "Nov 12, 2022"
-        ]
+            date(2023, 8, 31),
+            date(2023, 9, 16),
+            date(2023, 10, 7),
+            date(2023, 10, 28),
+            date(2019, 8, 31),
+            date(2019, 9, 21),
+            date(2019, 10, 12),
+            date(2019, 10, 19),
+            date(2019, 11, 9),
+            date(2019, 11, 30),
+            date(2020, 10, 10),
+            date(2020, 10, 24),
+            date(2020, 11, 14),
+            date(2021, 9, 2),
+            date(2021, 10, 2),
+            date(2021, 10, 16),
+            date(2021, 10, 30),
+            date(2022, 9, 24),
+            date(2022, 10, 8),
+            date(2022, 10, 15),
+            date(2022, 10, 22),
+            date(2022, 10, 29),
+            date(2022, 11, 12)
+            ]
 
-        formatted_dates = [datetime.strptime(date, "%b %d, %Y").date() for date in potential_dates]
+        #formatted_dates = [datetime.strptime(date, "%b %d, %Y").date() for date in potential_dates]
 
-
+    
         #randomly select a date from potential dates
-        gamedate = random.choice(formatted_dates)
+        gamedate = random.choice(potential_dates)
 
         #randomly select a purchase date that is within 100 days of the game date
-        purchasedate = fake.date_between(start_date='-100d', end_date=gamedate)
-
+        purchasedate = fake.date_between(start_date=gamedate, end_date=gamedate + timedelta(days=100))
+       
         #randomly select a money spent value
         moneyspent = random.randint(30, 150)
 
         # Update the DataFrame
-        previous_ticket_buyers_df.at[index, 'purchasedate'] = purchasedate
+        #previous_ticket_buyers_df.at[index, 'purchasedate'] = purchasedate
         previous_ticket_buyers_df.at[index, 'moneyspent'] = moneyspent
         previous_ticket_buyers_df.at[index, 'gamedate'] = gamedate
 
