@@ -4,7 +4,14 @@ sys.path.append('./Data Generation')
 
 
 def option_one():
-    print("You selected option 1.")
+    print("You selected option 1. Auto-run pipeline.")
+    print("\n")
+    
+    from Data_Generation import generate_data_and_save_to_database
+    generate_data_and_save_to_database()
+
+    from Initial_Data_Setup import initial_data_setup
+    initial_data_setup()
 
 
 def option_two():
@@ -22,7 +29,7 @@ def option_three():
 
 
 def option_four():
-    print("You selected option 4.")
+    print("You selected option 4. Data Preparation")
 
 
 print("\nWelcome to the OwlVision Pipeline Controller (Prototype)")

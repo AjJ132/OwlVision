@@ -2,7 +2,7 @@ import sqlalchemy as db
 import pandas as pd
 import random
 from faker import Faker
-from datetime import date 
+from datetime import date, timedelta
 
 fake = Faker()
 
@@ -13,7 +13,7 @@ def perform_operations(engine):
     # Common steps to get grab_count and total_count
     total_count = len(session_df)
     print(f"Total count of rows: {total_count}")
-    grab_count = int(total_count / 4)
+    grab_count = int(total_count / 2)
 
     # add randomness to grab_count
     grab_count += random.randint(-200, 200)
@@ -33,7 +33,7 @@ def perform_operations(engine):
         merchandise_df.at[index, 'moneyspent'] = random.randint(0, 150)
 
     
-    indices_to_remove = merchandise_df.sample(frac=0.2, replace=True).index
+    indices_to_remove = merchandise_df.sample(frac=0.8, replace=True).index
     session_df = session_df.drop(indices_to_remove)
     print(f"Removed {len(indices_to_remove)} rows for merchandise.")
 
@@ -42,7 +42,7 @@ def perform_operations(engine):
     # Operations for Mailing List
     grab_count = 0
     total_count = len(session_df)
-    grab_count = int(total_count / 5)
+    grab_count = int(total_count / 4)
 
     # add randomness to grab_count
     grab_count += random.randint(-200, 200)
@@ -57,7 +57,7 @@ def perform_operations(engine):
 
     # Operations for Alumni
     total_count = len(session_df)
-    grab_count = int(total_count / 4)
+    grab_count = int(total_count / 3)
 
 
     # add randomness to grab_count
@@ -192,7 +192,7 @@ def perform_operations(engine):
     alumni_df = alumni_df.drop(columns=['home_address'])
 
     indices_to_remove = []
-    indices_to_remove = alumni_df.sample(frac=0.2, replace=True).index
+    indices_to_remove = alumni_df.sample(frac=0.8, replace=True).index
     session_df = session_df.drop(indices_to_remove)
     print(f"Removed {len(indices_to_remove)} rows for alumni.")
 
@@ -200,7 +200,7 @@ def perform_operations(engine):
 
     #Operations for Previous Ticket Buyers
     total_count = len(session_df)
-    grab_count = int(total_count / 4)
+    grab_count = int(total_count / 2)
 
     # add randomness to grab_count
     grab_count += random.randint(-200, 200)
@@ -255,32 +255,268 @@ def perform_operations(engine):
             date(2022, 11, 12)
             ]
 
-        #formatted_dates = [datetime.strptime(date, "%b %d, %Y").date() for date in potential_dates]
+        
 
-    
         #randomly select a date from potential dates
         gamedate = random.choice(potential_dates)
-
+        
         #randomly select a purchase date that is within 100 days of the game date
-        purchasedate = fake.date_between(start_date=gamedate, end_date=gamedate + timedelta(days=100))
-       
+        delta = timedelta(days=random.randint(0, 100))  # Generating a random timedelta between 0 and 100 days
+        purchasedate = gamedate - delta  # Subtracting the timedelta from gamedate to get purchase date
+        
         #randomly select a money spent value
         moneyspent = random.randint(30, 150)
-
+        
         # Update the DataFrame
-        #previous_ticket_buyers_df.at[index, 'purchasedate'] = purchasedate
+        previous_ticket_buyers_df.at[index, 'purchasedate'] = purchasedate
         previous_ticket_buyers_df.at[index, 'moneyspent'] = moneyspent
         previous_ticket_buyers_df.at[index, 'gamedate'] = gamedate
 
     
-    indices_to_remove = previous_ticket_buyers_df.sample(frac=0.2, replace=True).index
+    indices_to_remove = previous_ticket_buyers_df.sample(frac=0.8, replace=True).index
     session_df = session_df.drop(indices_to_remove)
 
     print(f"Removed {len(indices_to_remove)} rows for previous ticket buyers.")
 
     # ------------------------------------------------------------------------------------------------------------
 
+    #Operations to spread the remaining rows across all tables at random
+    
+    print("Starting to spread remaining rows across all tables...")
 
+    #While there are still rows in session_df, randomly select a row and add it to a random table
+    for index, row in session_df.iterrows():
+        cloned_row = row.to_dict()
+
+        #randomly select a table to add the row to
+        table = random.choice(["merchandisebuyers", "mailinglist", "alumni", "regularticketbuyers"])
+        # table = random.choice(["merchandisebuyers", "mailinglist"])
+
+        #TEMP
+        # table = "alumni"
+
+        try:
+            #case switch for table
+            if table == "merchandisebuyers":
+                #Generate fields and remove home address column
+                
+                del cloned_row['home_address']
+                
+                #add purchasedate and moneyspent columns
+                cloned_row['purchasedate'] = ''
+                cloned_row['moneyspent'] = ''
+
+                #generate random date and money spent
+                random_date = fake.date_between(start_date='-5y', end_date='today')
+                
+                # Convert the date object to a string in 'YYYY-MM-DD' format
+                date_str = random_date.strftime('%Y-%m-%d')
+                
+                # # Update the DataFrame
+                cloned_row['purchasedate'] = date_str
+                cloned_row['moneyspent'] = random.randint(0, 150)
+
+                #add row to merchandise buyers
+                merchandise_df = merchandise_df.append(pd.DataFrame([cloned_row]), ignore_index=True)
+
+                
+
+            elif table == "mailinglist":
+                #remove home address column
+                del cloned_row['home_address']
+
+                #add row to mailing list
+                mailing_list_df = mailing_list_df.append(pd.DataFrame([cloned_row]), ignore_index=True)
+                
+            elif table == "alumni":
+                cloned_row['gender'] = ''
+                cloned_row['age'] = ''
+                cloned_row['streetaddress'] = ''
+                cloned_row['city'] = ''
+                cloned_row['usstate'] = ''
+                cloned_row['zipcode'] = ''
+                cloned_row['dateenrolled'] = ''
+                cloned_row['gradyear'] = ''
+                cloned_row['degree'] = ''
+                cloned_row['major'] = ''
+                cloned_row['stillattending'] = ''
+
+                #Random chance for gender
+                gender = "male" if random.randint(0, 1) == 0 else "female"
+
+                #Random chance for age (23 - 40)
+                age = random.randint(23, 40)
+
+                #parse via ',' address to get street address, city, state, and zip code
+                address = cloned_row['home_address']
+                try:
+                    # Split the address by ','
+                    address_parts = address.split(',')
+                    
+                    # Assign to variables
+                    streetAddress = address_parts[0].strip()
+                    city = address_parts[1].strip()
+                    
+                    # For US state, grab the first two characters of the state
+                    usstate = address_parts[2].strip()[:2]
+                    
+                    # For zip code, grab the remainder
+                    zipcode = address_parts[2].strip()[3:]
+
+                    #TEMP ERROR HANDLING/CORRECTION
+                    #ONLY GRAB THE LAST 5 CHARACTERS FOR ZIP CODE
+                    zipcode = zipcode[-5:]
+                    
+                except Exception as e:
+                    #grab last 5 for zip code
+                    zipcode = address[-5:]
+
+                    #Set default value to state and city
+                    usstate = "--"
+                    city = "--"
+                
+
+                # Set date enrolled to be iwthin the last 10 and 5 years
+                dateenrolled = fake.date_between(start_date='-10y', end_date='-5y')
+
+                #set grad year to be 4-5 years after date enrolled
+                gradyear = dateenrolled.year + random.randint(4, 5)
+
+                #set degree to be random
+                degree = random.choice(["Bachelor's", "Master's"])
+
+                #set major to be random
+                major = random.choice([
+                    "Computer Science",
+                    "Computer Engineering",
+                    "Information Technology",
+                    "Information Systems",
+                    "Software Engineering",
+                    "Computer Information Systems",
+                    "Biology",
+                    "Chemistry",
+                    "Physics",
+                    "Mathematics",
+                    "English Literature",
+                    "History",
+                    "Philosophy",
+                    "Psychology",
+                    "Sociology",
+                    "Political Science",
+                    "Economics",
+                    "Business Administration",
+                    "Marketing",
+                    "Finance",
+                    "Accounting",
+                    "Graphic Design",
+                    "Fine Arts",
+                    "Music",
+                    "Theatre Arts",
+                    "Journalism",
+                    "Communication Studies",
+                    "Environmental Science",
+                    "Astronomy",
+                    "Geography",
+                    "Anthropology",
+                    "Education"
+                ])
+
+                #set still attending to be a 5% chance of being true
+                stillattending = "true" if random.randint(0, 100) < 5 else "false"
+
+                # Update the DataFrame
+                cloned_row['gender'] = gender
+                cloned_row['age'] = age
+                cloned_row['streetaddress'] = streetAddress
+                cloned_row['city'] = city
+                cloned_row['usstate'] = usstate
+                cloned_row['zipcode'] = zipcode
+                cloned_row['dateenrolled'] = dateenrolled
+                cloned_row['gradyear'] = gradyear
+                cloned_row['degree'] = degree
+                cloned_row['major'] = major
+                cloned_row['stillattending'] = stillattending
+
+
+                #remove address column
+                del cloned_row['home_address']
+
+                #add row to alumni
+                print("Adding row to alumni...")
+                alumni_df = alumni_df.append(pd.DataFrame([cloned_row]), ignore_index=True)
+
+            elif table == "regularticketbuyers":
+                #add columns for previous ticket buyers
+                cloned_row['purchasedate'] = ''
+                cloned_row['moneyspent'] = ''
+                cloned_row['gamedate'] = ''
+
+                #remove address, phone number, and email columns
+                del cloned_row['home_address']
+                del cloned_row['phone_number']
+                del cloned_row['email']
+
+
+                #set values for previous ticket buyers
+                #potential game dates
+                potential_dates = [
+                    date(2023, 8, 31),
+                    date(2023, 9, 16),
+                    date(2023, 10, 7),
+                    date(2023, 10, 28),
+                    date(2019, 8, 31),
+                    date(2019, 9, 21),
+                    date(2019, 10, 12),
+                    date(2019, 10, 19),
+                    date(2019, 11, 9),
+                    date(2019, 11, 30),
+                    date(2020, 10, 10),
+                    date(2020, 10, 24),
+                    date(2020, 11, 14),
+                    date(2021, 9, 2),
+                    date(2021, 10, 2),
+                    date(2021, 10, 16),
+                    date(2021, 10, 30),
+                    date(2022, 9, 24),
+                    date(2022, 10, 8),
+                    date(2022, 10, 15),
+                    date(2022, 10, 22),
+                    date(2022, 10, 29),
+                    date(2022, 11, 12)
+                    ]
+
+                #randomly select a date from potential dates
+                gamedate = random.choice(potential_dates)
+                
+                #randomly select a purchase date that is within 100 days of the game date
+                delta = timedelta(days=random.randint(0, 100))  # Generating a random timedelta between 0 and 100 days
+                purchasedate = gamedate - delta  # Subtracting the timedelta from gamedate to get purchase date
+                
+                #randomly select a money spent value
+                moneyspent = random.randint(30, 150)
+                
+                # Update the DataFrame
+                cloned_row['purchasedate'] = purchasedate
+                cloned_row['moneyspent'] = moneyspent
+                cloned_row['gamedate'] = gamedate
+
+                #add row to regular ticket buyers
+                print("Adding row to regular ticket buyers...")
+                previous_ticket_buyers_df = previous_ticket_buyers_df.append(pd.DataFrame([cloned_row]), ignore_index=True)
+                    
+            else:
+                print("Error: table not found")
+
+            #remove row from session_df
+            print("Removing row from session_df...")
+            session_df.drop(index, inplace=True)
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print(f"Row: {cloned_row}")
+            print(f"Table: {table}")
+
+    
     return session_df, merchandise_df, mailing_list_df, alumni_df, previous_ticket_buyers_df
 
 def initial_data_setup():
@@ -301,19 +537,30 @@ def initial_data_setup():
         try:
             print("Updating database tables...")
             # Update Database Tables
+            #DEBUG: print count of merchandise_df
+            print(f"Count of merchandise_df: {len(merchandise_df)}")
             print("Updating merchandise buyers...")
             merchandise_df.to_sql('merchandisebuyers', con=engine, if_exists='replace', index=False)
 
+            #DEBUG: print count of mailing_list_df
+            print(f"Count of mailing_list_df: {len(mailing_list_df)}")
             print("Updating mailing list...")
             mailing_list_df.to_sql('mailinglist', con=engine, if_exists='replace', index=False)
 
+            #DEBUG: print count of alumni_df
+            print(f"Count of alumni_df: {len(alumni_df)}")
             print("Updating alumni...")
             alumni_df.to_sql('alumni', con=engine, if_exists='replace', index=False)
 
+            #DEBUG: print count of regularticketbuyers_df
+            print(f"Count of regularticketbuyers_df: {len(regularticketbuyers_df)}")
             print("Updating regular ticket buyers...")
             regularticketbuyers_df.to_sql('regularticketbuyers', con=engine, if_exists='replace', index=False)
 
             print("Updating session table...")
+            #DEBUG: print count of session_df
+            print(f"Count of session_df: {len(session_df)}")
+
             session_df.to_sql('sessiontable', con=engine, if_exists='replace', index=False)
             
             trans.commit()
@@ -321,7 +568,4 @@ def initial_data_setup():
             print(f"An error occurred: {e}")
             trans.rollback()
 
-def convert_to_date(date_str):
-    return datetime.strptime(date_str, "%b %d, %Y").date()
-
-initial_data_setup()
+# initial_data_setup()
