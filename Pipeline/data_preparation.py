@@ -80,20 +80,82 @@ def prepare_data():
         #Save the regular users dataframe as a CSV file
         regular_users_df.to_csv('Init_Data/regular_users.csv')
 
+        #create new master df to hold all analytical and statistical data
+        final_user_type_count = pd.DataFrame(columns=['user_type', 'user_count', 'percentage_of_total_users'])
+
+        #add data to the master df
+        final_user_type_count = final_user_type_count.append({'user_type': 'super_user', 'user_count': len(super_users_df.index), 'percentage_of_total_users': len(super_users_df.index)/len(all_data_df.index)}, ignore_index=True)
+        final_user_type_count = final_user_type_count.append({'user_type': 'semi_super_user', 'user_count': len(semi_super_users_df.index), 'percentage_of_total_users': len(semi_super_users_df.index)/len(all_data_df.index)}, ignore_index=True)
+        final_user_type_count = final_user_type_count.append({'user_type': 'regular_user', 'user_count': len(regular_users_df.index), 'percentage_of_total_users': len(regular_users_df.index)/len(all_data_df.index)}, ignore_index=True)
+
+        #save the master df as a CSV file
+        final_user_type_count.to_csv('Init_Data/final_user_type_count.csv')
+
+
+def create_master_table():
+    #Gather all SQL tables into dataframes
+    #Merge the dataframes into one master dataframe that includes all the data and columns
+    master_df = pd.DataFrame(columns=['first_name', 'last_name', 'email', 'phone_number', 'isAlumni', 'footballGamesAttended', 'hasBookstorePurchases', 'isOnMailingList', 'hasAttendedKSUGames', 'gamesAttended', 'children'])
+
 
 def categorize_and_print_users(x):
-    if x.nunique() >= 3:
-        print(f"Super user detected: {x.name}")  # x.name contains the group labels, in this case, (first_name, last_name)
+    unique_count = x.nunique()
+    if unique_count >= 3:
+        print(f"Super user detected: {x.name}")
         return 'super_user'
-    # elif x.unique() == 1:
-    #     return 'semi_super_user'
+    elif unique_count == 2:
+        return 'semi_super_user'
     else:
         return 'regular_user'
-        
+
 
 prepare_data()
 
 
-
-    
+#SAMPLE JSON RESPONSE  
+#[
+#   {
+#     "userID": "UUID",
+#     "firstName": "John",
+#     "lastName": "Doe",
+#     "email": "temp-email@temp.com",
+#     "phoneNumber": "123-456-7890",
+#     "isAlumni": true,
+#     "footballGamesAttended": 3,
+#     "hasBookstorePurchases": false,
+#     "hasDonated": true,
+#     "isOnMailingList": true,
+#     "dateJoinedMailingList": "2019-09-07",
+#     "isCountyResident": true,
+#     "distanceToCampuse": "10 (** Miles **)",
+#     "isKSUParent": false,
+#     "hasAttendedKSUGames": true,
+#     "gamesAttended": [
+#       {
+#         "gameID": "UUID",
+#         "gameDate": "2019-09-07",
+#         "opponent": "Jax State"
+#       },
+#       {
+#         "gameID": "UUID",
+#         "gameDate": "2020-09-07",
+#         "opponent": "Eeastern Kentucky"
+#       },
+#       {
+#         "gameID": "UUID",
+#         "gameDate": "2021-09-07",
+#         "opponent": "Tennessee Tech"
+#       }
+#     ],
+#     "children": [
+#       {
+#         "userID": "UUID",
+#         "firstName": "Jane",
+#         "lastName": "Doe",
+#         "email": "jado1234@students.kennesaw.edu",
+#         "stillAttending": true
+#       }
+#     ]
+#   }
+# ]
 

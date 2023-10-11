@@ -13,6 +13,9 @@ def option_one():
     from Initial_Data_Setup import initial_data_setup
     initial_data_setup()
 
+    from data_preparation import prepare_data
+    prepare_data()
+
 
 def option_two():
     print("You Selected Option 2 (Generate User Data).")
@@ -30,15 +33,20 @@ def option_three():
 
 def option_four():
     print("You selected option 4. Data Preparation")
+    print("\n")
+
+    from data_preparation import prepare_data
+    prepare_data()
 
 
-print("\nWelcome to the OwlVision Pipeline Controller (Prototype)")
+print("\nWelcome to the OwlVision Pipeline Data Controller (Prototype)")
 while True:
     print("\nPlease select an option:")
     print("1: Auto-run pipeline")
     print("2: Generate user data")
     print("3: Initial Data Setup")
     print("4: Data Preparation")
+    print("5: Generate Predictions")
     print("q: Quit")
 
     user_input = input("Your choice: ")
