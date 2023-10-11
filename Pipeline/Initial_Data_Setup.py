@@ -272,9 +272,55 @@ def perform_operations(engine):
         previous_ticket_buyers_df.at[index, 'moneyspent'] = moneyspent
         previous_ticket_buyers_df.at[index, 'gamedate'] = gamedate
 
-    
+        #add index to indices_to_remove
+        
+
+        #a 1/4 chance of them getting another ticket purchase
+        while random.randint(0, 3) == 0:
+            #grab first and last name and repeat the process
+            first_name = row['first_name']
+            last_name = row['last_name']
+
+            #grab random date from potential dates
+            gamedate = random.choice(potential_dates)
+
+            #randomly select a purchase date that is within 100 days of the game date
+            delta = timedelta(days=random.randint(0, 100))  # Generating a random timedelta between 0 and 100 days
+
+            # Subtracting the timedelta from gamedate to get purchase date
+            purchasedate = gamedate - delta
+
+            #randomly select a money spent value
+            moneyspent = random.randint(30, 150)
+
+            #check if first name is null
+            if pd.isnull(first_name):
+                first_name = "AAAAAAAA"
+
+                print("First name is null. Setting to AAAAAAAA.")
+
+                #exit the program
+                print("First name is null. Exiting program.")
+                
+
+            #create a new row with the same first and last name
+            new_row = {'id': -1, 'first_name': first_name, 'last_name': last_name, 'purchasedate': purchasedate, 'moneyspent': moneyspent, 'gamedate': gamedate}
+
+            #add the row to the dataframe
+            previous_ticket_buyers_df = previous_ticket_buyers_df.append(new_row, ignore_index=True)
+
+            print("Added another ticket purchase for " + first_name + " " + last_name + ".")
+
+            
+            
+
+
+
     indices_to_remove = previous_ticket_buyers_df.sample(frac=0.8, replace=True).index
-    session_df = session_df.drop(indices_to_remove)
+
+    #remove rows from session_df and ignore errors as they are from the person buying multiple tickets
+    session_df = session_df.drop(indices_to_remove, errors='ignore')
+
 
     print(f"Removed {len(indices_to_remove)} rows for previous ticket buyers.")
 
@@ -568,4 +614,4 @@ def initial_data_setup():
             print(f"An error occurred: {e}")
             trans.rollback()
 
-# initial_data_setup()
+initial_data_setup()

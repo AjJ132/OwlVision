@@ -80,22 +80,33 @@ def prepare_data():
         #Save the regular users dataframe as a CSV file
         regular_users_df.to_csv('Init_Data/regular_users.csv')
 
-        #create new master df to hold all analytical and statistical data
+        #create new final user df to hold all analytical and statistical data
         final_user_type_count = pd.DataFrame(columns=['user_type', 'user_count', 'percentage_of_total_users'])
 
-        #add data to the master df
+        #add data to the final user df
         final_user_type_count = final_user_type_count.append({'user_type': 'super_user', 'user_count': len(super_users_df.index), 'percentage_of_total_users': len(super_users_df.index)/len(all_data_df.index)}, ignore_index=True)
         final_user_type_count = final_user_type_count.append({'user_type': 'semi_super_user', 'user_count': len(semi_super_users_df.index), 'percentage_of_total_users': len(semi_super_users_df.index)/len(all_data_df.index)}, ignore_index=True)
         final_user_type_count = final_user_type_count.append({'user_type': 'regular_user', 'user_count': len(regular_users_df.index), 'percentage_of_total_users': len(regular_users_df.index)/len(all_data_df.index)}, ignore_index=True)
 
-        #save the master df as a CSV file
+        #save the final user df as a CSV file
         final_user_type_count.to_csv('Init_Data/final_user_type_count.csv')
 
+        #begin proccess of aggregating data for each user into one row/table
+        create_master_table(merchandise_buyers_df, mailing_list_df, alumni_df, regular_ticket_buyers_df)
 
-def create_master_table():
+
+def create_master_table(merchandiseBuyers, mailingList, alumni, regularTicketBuyers):
     #Gather all SQL tables into dataframes
     #Merge the dataframes into one master dataframe that includes all the data and columns
-    master_df = pd.DataFrame(columns=['first_name', 'last_name', 'email', 'phone_number', 'isAlumni', 'footballGamesAttended', 'hasBookstorePurchases', 'isOnMailingList', 'hasAttendedKSUGames', 'gamesAttended', 'children'])
+    master_df = pd.DataFrame(columns=['first_name', 'last_name', 'email', 'phone_number', 'isAlumni', 'footballGamesAttended', 'hasBookstorePurchases', 'totalspentonmerch' 'isOnMailingList', 'hasAttendedKSUGames', 'gameonedate', 'gameonecost','gametwodate','gametwocost','gamethreedate','gamethreecost'])
+
+    #add data to the master df
+    #loop over each dataframe and add the data to the master df
+
+    #add data from the merchandise buyers df
+    for index, row in merchandiseBuyers.iterrows():
+        master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 0, 'hasBookstorePurchases': True, 'moneyspent': row['totalspentonmerch'], 'isOnMailingList': False, 'hasAttendedKSUGames': False, 'gameonedate': '--', 'gametwodate': '--', 'gamethreedate': '--'}, ignore_index=True)
+
 
 
 def categorize_and_print_users(x):
