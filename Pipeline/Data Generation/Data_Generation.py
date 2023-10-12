@@ -29,25 +29,25 @@ def generate_data_and_save_to_database():
             dict_writer.writeheader()
             dict_writer.writerows(data)
 
-        # groundTruthData = []
-        # print("Generating ground truth data...")
-        # for _ in range(100):  # Generate 100 entries for ground truth data
-        #     entry = {
-        #         'id': _,
-        #         'first_name': fake.first_name(),
-        #         'last_name': fake.last_name(),
-        #         'phone_number': fake.phone_number(),
-        #         'email': fake.email(),
-        #         'home_address': fake.address().replace('\n', ', ')
-        #     }
-        #     groundTruthData.append(entry)
+        groundTruthData = []
+        print("Generating ground truth data...")
+        for _ in range(300):  # Generate 100 entries for ground truth data
+            entry = {
+                'id': _,
+                'first_name': fake.first_name(),
+                'last_name': fake.last_name(),
+                'phone_number': fake.phone_number(),
+                'email': fake.email(),
+                'home_address': fake.address().replace('\n', ', ')
+            }
+            groundTruthData.append(entry)
 
-        # print("Saving ground truth data to CSV...")
-        # keys = groundTruthData[0].keys()
-        # with open('GroundTruth.csv', 'w', newline='') as output_file:
-        #     dict_writer = csv.DictWriter(output_file, keys)
-        #     dict_writer.writeheader()
-        #     dict_writer.writerows(groundTruthData)
+        print("Saving ground truth data to CSV...")
+        keys = groundTruthData[0].keys()
+        with open('GroundTruth.csv', 'w', newline='') as output_file:
+            dict_writer = csv.DictWriter(output_file, keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(groundTruthData)
 
         print("Connecting to PostgreSQL...")
         engine = db.create_engine(
@@ -62,11 +62,11 @@ def generate_data_and_save_to_database():
         df.to_sql('generaluserpool', con=engine,
                   if_exists='replace', index=False)
 
-        # print("Saving ground truth data to SQL database...")
-        # #first clear the table
-        # connection.execute("DELETE FROM groundtruth")
-        # df = pd.read_csv('GroundTruth.csv')
-        # df.to_sql('groundtruth', con=engine, if_exists='replace', index=False)
+        print("Saving ground truth data to SQL database...")
+        #first clear the table
+        connection.execute("DELETE FROM groundtruth")
+        df = pd.read_csv('GroundTruth.csv')
+        df.to_sql('groundtruth', con=engine, if_exists='replace', index=False)
 
         print("Closing database connection...")
         connection.close()
@@ -78,4 +78,4 @@ def generate_data_and_save_to_database():
         return False
 
 
-generate_data_and_save_to_database()
+# generate_data_and_save_to_database()

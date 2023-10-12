@@ -94,6 +94,14 @@ def prepare_data():
         #begin proccess of aggregating data for each user into one row/table
         create_master_table(merchandise_buyers_df, mailing_list_df, alumni_df, regular_ticket_buyers_df)
 
+        #refine the master table
+        refine_master_table()
+
+        #create ground truth data
+        #create_ground_truth_data()
+
+        print("Done preparing data")
+
 
 def create_master_table(merchandiseBuyers, mailingList, alumni, regularTicketBuyers):
     #Gather all SQL tables into dataframes
@@ -146,7 +154,6 @@ def create_master_table(merchandiseBuyers, mailingList, alumni, regularTicketBuy
                 row3 = rows.iloc[2]
                 master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 3, 'hasBookstorePurchases': False, 'totalspentonmerch': 0, 'isOnMailingList': False, 'hasAttendedKSUGames': True,'gameonedate': str(row['gamedate']) if 'gamedate' in row else '--', 'gameonespent': int(row['moneyspent']) if 'moneyspent' in row else 0, 'gametwodate': str(row2['gamedate']) if 'gamedate' in row2 else '--', 'gametwospent': int(row2['moneyspent']) if 'moneyspent' in row2 else 0, 'gamethreedate': str(row3['gamedate']) if 'gamedate' in row3 else '--', 'gamethreespent': int(row3['moneyspent']) if 'moneyspent' in row3 else 0,}, ignore_index=True)
             
-                
         except:
             print("error")
             print('Error with row: ' + row)
@@ -156,7 +163,38 @@ def create_master_table(merchandiseBuyers, mailingList, alumni, regularTicketBuy
     print("Saving master df")
     master_df.to_csv('Init_Data/master_df.csv')
 
-            
+def refine_master_table():
+    print("Refining master table")
+    #group all the rows by first and last name
+    #for duplicate rows, double check via the email and phone number
+    #if same person merge the rows into one row
+
+    #read the master df from the CSV file
+    master_df = pd.read_csv('Init_Data/master_df.csv')
+
+    #group the rows by first and last name
+    #TODO 
+
+def create_ground_truth_data():
+    print("Creating ground truth data")
+
+    #load ground truth data from SQL database
+    engine = db.create_engine('postgresql+psycopg2://admin:password@localhost:5432/OwlVisionPrototype')
+
+    #create ground truth df
+    ground_truth_df = pd.DataFrame(columns=['id', 'first_name', 'last_name', 'phone_number', 'email', 'home_address'])
+    with engine.connect() as connection:
+        #Get the data from the database into a dataframe
+        ground_truth_df = pd.read_sql_table('groundtruth', engine)
+
+    #check count of ground truth df
+    print("Ground truth df count: " + str(len(ground_truth_df.index)))
+
+    if len(ground_truth_df.index) == 0:
+        print("No ground truth data found")
+        return
+    
+
         
 
 
