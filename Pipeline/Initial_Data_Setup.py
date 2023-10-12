@@ -226,6 +226,9 @@ def perform_operations(engine):
     previous_ticket_buyers_df['moneyspent'] = ''
     previous_ticket_buyers_df['gamedate'] = ''
 
+    #create new df for multiple ticket purchases
+    multiple_ticket_purchases_df = pd.DataFrame(columns=['id', 'first_name', 'last_name', 'purchasedate', 'moneyspent', 'gamedate'])
+
     #set values for previous ticket buyers
     for index, row in previous_ticket_buyers_df.iterrows():
         #potential game dates
@@ -255,8 +258,6 @@ def perform_operations(engine):
             date(2022, 11, 12)
             ]
 
-        
-
         #randomly select a date from potential dates
         gamedate = random.choice(potential_dates)
         
@@ -265,19 +266,18 @@ def perform_operations(engine):
         purchasedate = gamedate - delta  # Subtracting the timedelta from gamedate to get purchase date
         
         #randomly select a money spent value
-        moneyspent = random.randint(30, 150)
-        
+        moneyspent = random.randint(30, 120)
+
         # Update the DataFrame
         previous_ticket_buyers_df.at[index, 'purchasedate'] = purchasedate
         previous_ticket_buyers_df.at[index, 'moneyspent'] = moneyspent
         previous_ticket_buyers_df.at[index, 'gamedate'] = gamedate
 
-        #add index to indices_to_remove
-        
-
+    
         #a 1/4 chance of them getting another ticket purchase
         while random.randint(0, 3) == 0:
             #grab first and last name and repeat the process
+            id = row['id']
             first_name = row['first_name']
             last_name = row['last_name']
 
@@ -293,33 +293,22 @@ def perform_operations(engine):
             #randomly select a money spent value
             moneyspent = random.randint(30, 150)
 
-            #check if first name is null
-            if pd.isnull(first_name):
-                first_name = "AAAAAAAA"
-
-                print("First name is null. Setting to AAAAAAAA.")
-
-                #exit the program
-                print("First name is null. Exiting program.")
-                
-
             #create a new row with the same first and last name
-            new_row = {'id': -1, 'first_name': first_name, 'last_name': last_name, 'purchasedate': purchasedate, 'moneyspent': moneyspent, 'gamedate': gamedate}
+            new_row = {'id': id, 'first_name': first_name, 'last_name': last_name, 'purchasedate': purchasedate, 'moneyspent': moneyspent, 'gamedate': gamedate}
 
-            #add the row to the dataframe
-            previous_ticket_buyers_df = previous_ticket_buyers_df.append(new_row, ignore_index=True)
+            #add row to new dataframe
+            multiple_ticket_purchases_df = multiple_ticket_purchases_df.append(new_row, ignore_index=True)
 
             print("Added another ticket purchase for " + first_name + " " + last_name + ".")
 
-            
-            
-
-
-
+    #remove rows from session_df
     indices_to_remove = previous_ticket_buyers_df.sample(frac=0.8, replace=True).index
 
     #remove rows from session_df and ignore errors as they are from the person buying multiple tickets
     session_df = session_df.drop(indices_to_remove, errors='ignore')
+
+    #add rows from multiple ticket purchases to previous ticket buyers
+    previous_ticket_buyers_df = previous_ticket_buyers_df.append(multiple_ticket_purchases_df, ignore_index=True)
 
 
     print(f"Removed {len(indices_to_remove)} rows for previous ticket buyers.")
@@ -614,4 +603,4 @@ def initial_data_setup():
             print(f"An error occurred: {e}")
             trans.rollback()
 
-initial_data_setup()
+# initial_data_setup()

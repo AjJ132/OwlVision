@@ -98,16 +98,72 @@ def prepare_data():
 def create_master_table(merchandiseBuyers, mailingList, alumni, regularTicketBuyers):
     #Gather all SQL tables into dataframes
     #Merge the dataframes into one master dataframe that includes all the data and columns
-    master_df = pd.DataFrame(columns=['first_name', 'last_name', 'email', 'phone_number', 'isAlumni', 'footballGamesAttended', 'hasBookstorePurchases', 'totalspentonmerch' 'isOnMailingList', 'hasAttendedKSUGames', 'gameonedate', 'gameonecost','gametwodate','gametwocost','gamethreedate','gamethreecost'])
+    master_df = pd.DataFrame(columns=['first_name', 'last_name', 'email', 'phone_number', 'isAlumni', 'footballGamesAttended', 'hasBookstorePurchases', 'totalspentonmerch', 'isOnMailingList', 'hasAttendedKSUGames', 'gameonedate', 'gameonespent','gametwodate','gametwospent','gamethreedate','gamethreespent'])
 
     #add data to the master df
     #loop over each dataframe and add the data to the master df
 
     #add data from the merchandise buyers df
     for index, row in merchandiseBuyers.iterrows():
-        master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 0, 'hasBookstorePurchases': True, 'moneyspent': row['totalspentonmerch'], 'isOnMailingList': False, 'hasAttendedKSUGames': False, 'gameonedate': '--', 'gametwodate': '--', 'gamethreedate': '--'}, ignore_index=True)
+        master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 0, 'hasBookstorePurchases': True, 'totalspentonmerch': row['moneyspent'], 'isOnMailingList': False, 'hasAttendedKSUGames': False, 'gameonedate': '--', 'gameonespent': 0, 'gametwodate': '--', 'gametwospent': 0, 'gamethreedate': '--', 'gamethreespent': 0,}, ignore_index=True)
+
+    #add data from the mailing list df
+    for index, row in mailingList.iterrows():
+        master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 0, 'hasBookstorePurchases': False, 'totalspentonmerch': 0, 'isOnMailingList': True, 'hasAttendedKSUGames': False, 'gameonedate': '--', 'gameonespent': 0, 'gametwodate': '--', 'gametwospent': 0, 'gamethreedate': '--', 'gamethreespent': 0,}, ignore_index=True)
+
+    #add data from the alumni df
+    for index, row in alumni.iterrows():
+        master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': True, 'footballGamesAttended': 0, 'hasBookstorePurchases': False, 'totalspentonmerch': 0, 'isOnMailingList': False, 'hasAttendedKSUGames': False, 'gameonedate': '--', 'gameonespent': 0, 'gametwodate': '--', 'gametwospent': 0, 'gamethreedate': '--', 'gamethreespent': 0,}, ignore_index=True)
+
+    #operations for the regular ticket buyers df
+
+    print("Starting regular ticket buyers df operations")
+    #first grab all ids from the regular ticket buyers df but only one for each id no duplicates
+    ids = regularTicketBuyers['id'].unique()
+
+    print("ID count: " + str(len(ids)))
+
+    #loop over each id and grab all the rows with that id
+    for id in ids:
+        #grab all the rows with the current id
+        rows = regularTicketBuyers.loc[regularTicketBuyers['id'] == id]
+        row = rows.iloc[0]
+
+        print("ID: " + str(id) + " Row count: " + str(len(rows.index)))
+
+        row_count = len(rows.index)
+
+        #switch case for the number of rows
+        try:
+            
+            if row_count == 1:
+                master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 1, 'hasBookstorePurchases': False, 'totalspentonmerch': 0, 'isOnMailingList': False, 'hasAttendedKSUGames': True,'gameonedate': str(row['gamedate']) if 'gamedate' in row else '--', 'gameonespent': int(row['moneyspent']) if 'moneyspent' in row else 0, 'gametwodate': '--', 'gametwospent': 0, 'gamethreedate': '--', 'gamethreespent': 0,}, ignore_index=True)
+            elif row_count == 2:
+                row2 = rows.iloc[1]
+                master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 2, 'hasBookstorePurchases': False, 'totalspentonmerch': 0, 'isOnMailingList': False, 'hasAttendedKSUGames': True,'gameonedate': str(row['gamedate']) if 'gamedate' in row else '--', 'gameonespent': int(row['moneyspent']) if 'moneyspent' in row else 0, 'gametwodate': str(row2['gamedate']) if 'gamedate' in row2 else '--', 'gametwospent': int(row2['moneyspent']) if 'moneyspent' in row2 else 0, 'gamethreedate': '--', 'gamethreespent': 0,}, ignore_index=True)
+            else:
+                row2 = rows.iloc[1]
+                row3 = rows.iloc[2]
+                master_df = master_df.append({'first_name': row['first_name'], 'last_name': row['last_name'], 'email': row['email'], 'phone_number': row['phone_number'], 'isAlumni': False, 'footballGamesAttended': 3, 'hasBookstorePurchases': False, 'totalspentonmerch': 0, 'isOnMailingList': False, 'hasAttendedKSUGames': True,'gameonedate': str(row['gamedate']) if 'gamedate' in row else '--', 'gameonespent': int(row['moneyspent']) if 'moneyspent' in row else 0, 'gametwodate': str(row2['gamedate']) if 'gamedate' in row2 else '--', 'gametwospent': int(row2['moneyspent']) if 'moneyspent' in row2 else 0, 'gamethreedate': str(row3['gamedate']) if 'gamedate' in row3 else '--', 'gamethreespent': int(row3['moneyspent']) if 'moneyspent' in row3 else 0,}, ignore_index=True)
+            
+                
+        except:
+            print("error")
+            print('Error with row: ' + row)
+            print('Row count: ' + row_count)
+    
+    #save the master df as a CSV file
+    print("Saving master df")
+    master_df.to_csv('Init_Data/master_df.csv')
+
+            
+        
 
 
+    
+       
+
+        
 
 def categorize_and_print_users(x):
     unique_count = x.nunique()
