@@ -1,0 +1,48 @@
+.home-page {
+  width: 100vw;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.top-bar {
+  background-color: #ffc629;
+  text-align: center;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.hamburger-container {
+  width: 55px;
+  height: 40px;
+  position: relative;
+}
+
+.bar {
+  width: 100%;
+  max-width: 55px;
+  height: 6px;
+  background-color: black;
+  position: absolute;
+  transition: 0.3s;
+}
+
+.bar:nth-child(1) {
+  top: 0;
+}
+
+.bar:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bar:nth-child(3) {
+  bottom: 0;
+}
