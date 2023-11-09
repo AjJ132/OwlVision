@@ -33,7 +33,7 @@ jobs:
           action: "upload"
           app_location: "UI-Mockups/Code/owl-vision-mockups/" # Update this to the correct path
           api_location: "" # Update if you have an API
-          output_location: "build" # Update this to your build directory
+          output_location: "dist" # Update this to your build directory
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
