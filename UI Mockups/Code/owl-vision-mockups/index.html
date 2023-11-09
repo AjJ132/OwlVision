@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/ksu_logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="./homepage.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/homepage.css" />
     <title>Owl Vision</title>
   </head>
   <body>
@@ -22,6 +22,62 @@
         </div>
       </div>
       <div class="module-one">
+        <!--Shows Stats for last game-->
+        <div class="previous-game-stats-container">
+          <div
+            class="analytics-options-container"
+            style="grid-column: 1; grid-row: 1"
+          >
+            <h3>Options</h3>
+
+            <select id="gameDropdown"></select>
+
+            <h3>Total Attendance: 9,000</h3>
+            <h3>Student Attendance: 1,500</h3>
+            <h3>Season Ticket Holders: 1,000</h3>
+            <h3>Concession Sales: $6,000</h3>
+          </div>
+          <div
+            class="pie-chart-vertical-title-container"
+            style="grid-column: 2; grid-row: 1"
+          >
+            <h3>Acutal Attendance Comparisons</h3>
+            <canvas id="aacLineChart"></canvas>
+            <br />
+            <br />
+            <div class="horizontal-container" style="gap: 1rem">
+              <div class="vertical-container">
+                <h3>Options</h3>
+                <select id="aacOptionsDropdown"></select>
+              </div>
+
+              <h4>Average Attendance Loss: 15%</h4>
+            </div>
+          </div>
+          <div
+            class="pie-chart-vertical-title-container"
+            style="grid-column: 4; grid-row: 1"
+          >
+            <h3>ST Holders VS Other Fans</h3>
+            <canvas
+              height="300"
+              width="300"
+              id="stAttendenceVsRegularFans"
+            ></canvas>
+          </div>
+
+          <div
+            class="pie-chart-vertical-title-container"
+            style="grid-column: 3; grid-row: 1"
+          >
+            <h3>Students VS Other Fans</h3>
+            <canvas height="300" width="300" id="studentsPieChart"></canvas>
+          </div>
+        </div>
+
+        <!--Shows attendance for previous games, compares season tickets to regular buyers-->
+      </div>
+      <div class="module-two">
         <div class="customer-lookup-container">
           <div class="customer-lookup-title-container">
             <h3>Potential Season Ticket Holder Lookup</h3>
@@ -59,16 +115,18 @@
                     <td>Yes</td>
                     <td>Yes</td>
                     <td>
-                      <button
-                        style="
-                          padding: 1rem;
-                          border-radius: 8px;
-                          border: none;
-                          cursor: pointer;
-                        "
-                      >
-                        View
-                      </button>
+                      <a href="./pages/customerView.html">
+                        <button
+                          style="
+                            padding: 1rem;
+                            border-radius: 8px;
+                            border: none;
+                            cursor: pointer;
+                          "
+                        >
+                          View
+                        </button>
+                      </a>
                     </td>
                   </tr>
                   <tr>
@@ -83,16 +141,18 @@
                     <td>Yes</td>
                     <td>No</td>
                     <td>
-                      <button
-                        style="
-                          padding: 1rem;
-                          border-radius: 8px;
-                          border: none;
-                          cursor: pointer;
-                        "
-                      >
-                        View
-                      </button>
+                      <a href="./pages/customerView.html">
+                        <button
+                          style="
+                            padding: 1rem;
+                            border-radius: 8px;
+                            border: none;
+                            cursor: pointer;
+                          "
+                        >
+                          View
+                        </button>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -100,16 +160,21 @@
             </div>
             <div class="customer-lookup-footer-container">
               <h3>Displaying 2 of 400</h3>
-              <div>
-                <button><p>Rerefresh</p></button>
+              <div style="margin-right: 1rem">
+                <button>Rerefresh</button>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="previous-game-stats-container"></div>
+        <div class="overall-user-scores-container">
+          <canvas id="scoreChart" width="400" height="400"></canvas>
+        </div>
       </div>
     </div>
-    <script type="module" src="/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/pieChart.js"></script>
   </body>
 </html>
