@@ -31,7 +31,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_VICTORIOUS_WATER_06F04440F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "UI Mockups/Code/owl-vision-mockups/" # Update this to the correct path
+          app_location: "UI-Mockups/Code/owl-vision-mockups/" # Update this to the correct path
           api_location: "" # Update if you have an API
           output_location: "build" # Update this to your build directory
 
