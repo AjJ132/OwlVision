@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/ksu_logo.png" />
+    <link rel="icon" href="/KS Logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/homepage.css" />
@@ -18,7 +18,10 @@
           <div class="bar"></div>
         </div>
         <div class="title-container">
-          <p>OWL Vision</p>
+          <div class="horizontal-container" style="gap: 1rem;">
+            <p style="color: black;">OWL Vision</p>
+            <img src="./public/KS Logo.png" alt="user" width="50" height="50" />
+          </div>
         </div>
       </div>
       <div class="module-one">
@@ -43,9 +46,9 @@
           >
             <h3>Acutal Attendance Comparisons</h3>
             <canvas id="aacLineChart"></canvas>
-            <br />
-            <br />
-            <div class="horizontal-container" style="gap: 1rem">
+            
+            
+            <div class="horizontal-container" style="gap: 1rem; margin-top: 15px;">
               <div class="vertical-container">
                 <h3>Options</h3>
                 <select id="aacOptionsDropdown"></select>
@@ -81,7 +84,7 @@
         <div class="customer-lookup-container">
           <div class="customer-lookup-title-container">
             <h3>Potential Season Ticket Holder Lookup</h3>
-            <h3>Last Refresh: 11/9/2023</h3>
+            <h3>Last Data Refresh: 11/9/2023</h3>
           </div>
           <div class="customer-lookup-content-container">
             <!--Datagrid for customer information-->
@@ -155,13 +158,42 @@
                       </a>
                     </td>
                   </tr>
+                  <tr>
+                    <td>XXXXXX</td>
+                    <td>More</td>
+                    <td>Data</td>
+                    <td>Goes</td>
+                    <td>Here</td>
+                    <td>Rows</td>
+                    <td>Fill</td>
+                    <td>As</td>
+                    <td>Needed</td>
+                    <td></td>
+                    <td>
+                      <a href="./pages/customerView.html">
+                        <button
+                          style="
+                            padding: 1rem;
+                            border-radius: 8px;
+                            border: none;
+                            cursor: pointer;
+                          "
+                        >
+                          View
+                        </button>
+                      </a>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
             <div class="customer-lookup-footer-container">
-              <h3>Displaying 2 of 400</h3>
+              <h3>Displaying 3 of 4000</h3>
               <div style="margin-right: 1rem">
-                <button>Rerefresh</button>
+                <button>Refresh</button>
+                <a href="./public/ksu_report.xlsx" download="ksu_report.xlsx">
+                  <button type="button">Download Report</button>
+              </a>
               </div>
             </div>
           </div>

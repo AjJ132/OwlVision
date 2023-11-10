@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   const gameDropdown = document.querySelector("#gameDropdown");
   const gameOptions = [
+    "All",
     "Lincoln | 10/28",
     "Tennessee State | 10/07",
     "Furman | 08/16",
@@ -33,20 +34,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
       datasets: [
         {
           label: "ST Ratings",
-          data: [5, 10, 15, 20, 25], // Replace these numbers with your actual data
+          data: [127, 393, 645, 495, 248], // Replace these numbers with your actual data
           backgroundColor: [
-            "rgba(255, 99, 132, 0.65)",
-            "rgba(54, 162, 235, 0.65)",
-            "rgba(255, 206, 86, 0.65)",
-            "rgba(75, 192, 192, 0.65)",
-            "rgba(153, 102, 255, 0.65)",
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            "rgba(255, 198, 41, 1)",
           ],
           borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            "rgba(255, 198, 41, 1)",
           ],
           borderWidth: 1,
         },
@@ -82,14 +83,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
           label: "Purchased",
           data: [9500, 9700, 9400],
           fill: true,
-          borderColor: "rgb(75, 192, 192)",
+          borderColor: "rgba(255, 198, 41, 1)",
           tension: 0.2,
         },
         {
           label: "Attended",
           data: [9000, 9200, 9100],
           fill: true,
-          borderColor: "rgb(255, 99, 132)",
+          borderColor:"rgba(176, 179, 178, 1)",
           tension: 0.2,
         },
       ],

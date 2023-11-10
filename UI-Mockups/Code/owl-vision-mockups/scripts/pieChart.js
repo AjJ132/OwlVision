@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
           label: "ST Attendance vs Other Fans",
           data: [60, 20, 20], // Data for the pie chart
           backgroundColor: [
-            "rgba(54, 162, 235, 0.65)", // Color for regular fans
-            "rgba(255, 159, 64, 0.65)", // Color for season ticket holders
-            "rgba(255, 99, 132, 0.65)", // Color for students
+            "rgba(255, 198, 41, 1)", // Color for regular fans
+            "rgba(176, 179, 178, 1)", // Color for season ticket holders
+            "rgba(35,31,32, 1)", // Color for students
           ],
-          borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 159, 64, 1)"],
+          borderColor: ["rgba(0,0,0, 1)"],
           borderWidth: 1,
         },
       ],
@@ -56,10 +56,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
           label: "Students vs Regular Fans",
           data: [80, 20], // Data for the pie chart
           backgroundColor: [
-            "rgba(54, 162, 235, 0.65)", // Color for regular fans
-            "rgba(255, 159, 64, 0.65)", // Color for season ticket holders
+            "rgba(255, 198, 41, 1)", // Color for regular fans
+            "rgba(176, 179, 178, 1)", // Color for season ticket holders
           ],
-          borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 159, 64, 1)"],
+          borderColor: ["rgba(0,0,0, 1)"],
           borderWidth: 1,
         },
       ],

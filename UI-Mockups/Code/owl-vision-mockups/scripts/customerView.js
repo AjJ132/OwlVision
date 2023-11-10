@@ -12,19 +12,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
           label: "Purchased",
           data: [2, 4, 4, 5],
           fill: true,
-          borderColor: "rgb(75, 192, 192)",
+          borderColor: "rgba(255, 198, 41, 1)",
           tension: 0.2,
         },
         {
           label: "Attended",
           data: [2, 3, 4, 4],
           fill: true,
-          borderColor: "rgb(255, 99, 132)",
+          borderColor:"rgba(176, 179, 178, 1)",
           tension: 0.2,
         },
       ],
     },
     options: {
+      animation: {
+        duration: 2000
+      },
       scales: {
         y: {
           beginAtZero: true,
@@ -60,50 +63,155 @@ document.addEventListener("DOMContentLoaded", (event) => {
     },
   });
 
-  //bar chart to show percentile for ST rating
+  //doughnut chart to show percentile for ST rating
   const percentileSTRatingEle = document
     .getElementById("percentileSTRating")
     .getContext("2d");
   const percentileSTRatingPieChart = new Chart(percentileSTRatingEle, {
-    type: "bar",
+    type: "doughnut",
     data: {
-      labels: ["0-1", "1-2", "2-3", "3-4", "4-5"],
+      // labels: ["Customer Percentile"],
       datasets: [
         {
-          label: "ST Ratings",
-          data: [5, 10, 15, 20, 25], // Replace these numbers with your actual data
+          label: "Attendance Percentile",
+          data: [95, 5], // Replace these numbers with your actual data
           backgroundColor: [
-            "rgba(255, 99, 132, 0.65)",
-            "rgba(54, 162, 235, 0.65)",
-            "rgba(255, 206, 86, 0.65)",
-            "rgba(75, 192, 192, 0.65)",
-            "rgba(153, 102, 255, 0.65)",
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            
           ],
           borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            
           ],
           borderWidth: 1,
         },
       ],
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            // Include a dollar sign in the ticks and ensure whole numbers only
-            callback: function (value) {
-              if (value % 1 === 0) {
-                return value;
-              }
-            },
-          },
-        },
+      // showlabels: false,
+      animation: {
+        duration: 2000
       },
+      responsive: false,
+          maintainAspectRatio: true,
+      // scales: {
+      //   y: {
+      //     beginAtZero: true,
+          
+      //     ticks: {
+      //       // Include a dollar sign in the ticks and ensure whole numbers only
+      //       callback: function (value) {
+      //         if (value % 1 === 0) {
+      //           return value;
+      //         }
+      //       },
+      //     },
+      //   },
+      // },
     },
   });
+
+  //doughnut chart to show percentile for ST rating
+  const percentileAttendenceEle = document
+    .getElementById("percentileAttendence")
+    .getContext("2d");
+  const percentileAttendencePieChart = new Chart(percentileAttendenceEle, {
+    type: "doughnut",
+    data: {
+      // labels: ["Customer Percentile"],
+      datasets: [
+        {
+          label: "ST Percentile Rating",
+          data: [83, 17], // Replace these numbers with your actual data
+          backgroundColor: [
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            
+          ],
+          borderColor: [
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      // showlabels: false,
+      animation: {
+        duration: 2000
+      },
+      responsive: false,
+          maintainAspectRatio: true,
+      // scales: {
+      //   y: {
+      //     beginAtZero: true,
+          
+      //     ticks: {
+      //       // Include a dollar sign in the ticks and ensure whole numbers only
+      //       callback: function (value) {
+      //         if (value % 1 === 0) {
+      //           return value;
+      //         }
+      //       },
+      //     },
+      //   },
+      // },
+    },
+  });
+
+  //doughnut chart to show percentile for ST rating
+  const percentileSocialInteractionsEle = document
+    .getElementById("percentileSocialInteractions")
+    .getContext("2d");
+  const percentileSocialInteractionPieChart = new Chart(percentileSocialInteractionsEle, {
+    type: "doughnut",
+    data: {
+      // labels: ["Customer Percentile"],
+      datasets: [
+        {
+          label: "ST Percentile Rating",
+          data: [45, 55], // Replace these numbers with your actual data
+          backgroundColor: [
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            
+          ],
+          borderColor: [
+            "rgba(255, 198, 41, 1)",
+            "rgba(176, 179, 178, 1)",
+            
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      // showlabels: false,
+      animation: {
+        duration: 2000
+      },
+      responsive: false,
+          maintainAspectRatio: true,
+      // scales: {
+      //   y: {
+      //     beginAtZero: true,
+          
+      //     ticks: {
+      //       // Include a dollar sign in the ticks and ensure whole numbers only
+      //       callback: function (value) {
+      //         if (value % 1 === 0) {
+      //           return value;
+      //         }
+      //       },
+      //     },
+      //   },
+      // },
+    },
+  });
+
+  
 });
