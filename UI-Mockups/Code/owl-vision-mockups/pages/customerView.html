@@ -4,9 +4,162 @@
   <link rel="icon" href="/ksu_logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../styles/style.css" />
+  <link rel="stylesheet" href="../styles/homepage.css" />
   <link rel="stylesheet" href="../styles/customerView.css" />
   <title>Owl Vision: Customer View</title>
 </head>
 <body>
-  <script src="../scripts/customerView.js"></script>
+  <div class="customer-view-container">
+    <div class="top-bar">
+      <!--Hamburger button-->
+      <div class="hamburger-container">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <div class="title-container">
+        <a href="../index.html"><p>OWL Vision</p></a>
+      </div>
+    </div>
+
+    <div class="customer-view-grid">
+      <div class="customer-info-attendence" style="grid-column: 1; grid-row: 1">
+        <div class="customer-attendence-line-chart-container">
+          <a href="../index.html"
+            ><button style="max-width: 150px">Back</button></a
+          >
+          <h3>Customer Attendance History</h3>
+          <canvas id="customer-attendence-line-chart"></canvas>
+        </div>
+      </div>
+      <div
+        class="customer-full-stats-container"
+        style="grid-column: 2; grid-row: 1 / 3"
+      >
+        <div
+          class="vertical-container"
+          style="
+            gap: 1rem;
+
+            align-items: start;
+            justify-content: start;
+          "
+        >
+          <div
+            class="horizontal-container"
+            style="
+              justify-content: space-between;
+              width: 100%;
+              background-color: #757575;
+            "
+          >
+            <div class="horizontal-container" style="gap: 2rem">
+              <img
+                src="../public/user.png"
+                alt="customer"
+                width="50"
+                height="50"
+              />
+              <h2>John Doe</h2>
+            </div>
+            <h2 style="margin-right: 2rem">ST Rating: 4.95</h2>
+          </div>
+
+          <div
+            class="horizontal-container"
+            style="
+              justify-content: space-between;
+              width: 100%;
+              align-items: start;
+              padding: 1rem;
+            "
+          >
+            <div
+              class="vertical-container"
+              style="justify-content: start; align-items: start"
+            >
+              <h3>Age: 35</h3>
+              <h3>Male</h3>
+              <h3>Marietta, GA</h3>
+              <h3>Season Tickets 2023: No</h3>
+            </div>
+            <div class="vertical-container" style="margin-right: 2rem">
+              <h3>Contact Information</h3>
+              <div class="horizontal-container" style="gap: 2rem">
+                <h3>123-456-7890</h3>
+                <h3>exmaple@gmail.com</h3>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div
+            class="vertical-container"
+            style="align-items: start; padding: 1rem"
+          >
+            <h3>Season Ticket Rating Factors</h3>
+            <!--Table for ST Rating Factors-->
+            <table>
+              <tr>
+                <th>Factor</th>
+                <th>Previous Attendance</th>
+                <th>Mailing List</th>
+                <th>Merchandise Purchases</th>
+                <th>Rewards App</th>
+                <th>Social Media</th>
+                <th>Alumni</th>
+              </tr>
+              <tr>
+                <td>Rating</td>
+                <td>1.0</td>
+                <td>1.0</td>
+                <td>0.45</td>
+                <td>0.74</td>
+                <td>0.45</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="percentile-rank-container">
+        <div class="vertical-container">
+          <h2 >User ST Rating Percentile</h2>
+          <div style="position: relative; width: 300px; height: 300px;">
+            <canvas id="percentileSTRating" width="300" height="300"></canvas>
+            <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -90%); ">
+              95th
+            </h1>
+          </div>
+        </div>
+
+        <div class="vertical-container">
+          <h2 >Attendance Percentile</h2>
+          <div style="position: relative; width: 300px; height: 300px;">
+            <canvas id="percentileAttendence" width="300" height="300"></canvas>
+            <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -90%); ">
+              83rd
+            </h1>
+          </div>
+        </div>
+
+        <div class="vertical-container">
+          <h2 >Social Media Interactions Percentile</h2>
+          <div style="position: relative; width: 300px; height: 300px;">
+            <canvas id="percentileSocialInteractions" width="300" height="300"></canvas>
+            <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -90%); ">
+              45th
+            </h1>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script
+    type="module"
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"
+  ></script>
+  <script type="module" src="../scripts/customerView.js"></script>
 </body>
