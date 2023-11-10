@@ -141,6 +141,8 @@ button {
 
   margin-top: 1rem;
   margin-right: 1rem;
+
+  gap: 2rem;
 }
 
 .customer-lookup-container h3 {
@@ -208,8 +210,11 @@ td:nth-child(even) {
 
   display: flex;
   flex-direction: row;
+  gap: 2rem;
 
   padding-top: 50px;
+
+  margin-bottom: 100px;
 }
 
 .overall-user-scores-container {

@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
           label: "Attended",
           data: [9000, 9200, 9100],
           fill: true,
-          borderColor:"rgba(176, 179, 178, 1)",
+          borderColor: "rgba(176, 179, 178, 1)",
           tension: 0.2,
         },
       ],
