@@ -1,3 +1,32 @@
+window.onload = function () {
+  // Check if the 'visited' token is in localStorage
+  if (!localStorage.getItem("visited")) {
+    // It's the user's first visit, display the popup and overlay
+    document.getElementById("overlay").classList.add("fade-in");
+    document.getElementById("popupCard").classList.add("fade-in");
+
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popupCard").style.display = "block";
+
+    // Set the 'visited' token in localStorage
+    localStorage.setItem("visited", "true");
+  }
+
+  // Dismiss button functionality
+  document.getElementById("dismissButton").onclick = function () {
+    var overlay = document.getElementById("overlay");
+    var popupCard = document.getElementById("popupCard");
+
+    overlay.classList.replace("fade-in", "fade-out");
+    popupCard.classList.replace("fade-in", "fade-out");
+
+    setTimeout(function () {
+      overlay.style.display = "none";
+      popupCard.style.display = "none";
+    }, 500); // Match this timeout with the animation-duration
+  };
+};
+
 document.addEventListener("DOMContentLoaded", (event) => {
   const gameDropdown = document.querySelector("#gameDropdown");
   const gameOptions = [
@@ -90,7 +119,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
           label: "Attended",
           data: [9000, 9200, 9100],
           fill: true,
-          borderColor:"rgba(176, 179, 178, 1)",
+          borderColor: "rgba(176, 179, 178, 1)",
           tension: 0.2,
         },
       ],

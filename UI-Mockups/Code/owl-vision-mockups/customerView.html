@@ -98,7 +98,7 @@
           >
             <h3>Season Ticket Rating Factors</h3>
             <!--Table for ST Rating Factors-->
-            <table>
+            <table style="margin-top: 1rem">
               <tr>
                 <th>Factor</th>
                 <th>Previous Attendance</th>
@@ -115,43 +115,128 @@
                 <td>0.45</td>
                 <td>0.74</td>
                 <td>0.45</td>
-                <td>0</td>
+                <td>1.0</td>
               </tr>
             </table>
+          </div>
+          <div
+            class="vertical-container"
+            style="width: 100%; align-items: start; padding: 1rem"
+          >
+            <h3>Social Media Profiles</h3>
+            <div
+              class="horizontal-container"
+              style="
+                width: 100%;
+                justify-content: space-evenly;
+                margin-top: 2rem;
+              "
+            >
+              <div class="vertical-container">
+                <img
+                  src="./public/x-logo-white.png"
+                  alt="twitter"
+                  width="50"
+                  height="50"
+                />
+                <h4>@johndoe</h4>
+              </div>
+              <div class="vertical-container">
+                <img
+                  src="./public/insta-logo.png"
+                  alt="twitter"
+                  width="50"
+                  height="50"
+                />
+                <h4>**UNKNOWN</h4>
+              </div>
+            </div>
+          </div>
+          <div
+            class="vertical-container"
+            style="padding: 1rem; width: 100%; align-items: start"
+          >
+            <h3>Alumni Information</h3>
+
+            <div
+              class="vertical-container"
+              style="align-items: start; margin-top: 1rem"
+            >
+              <h4>Graduated: 2010</h4>
+              <h4>Major: Computer Science</h4>
+            </div>
+          </div>
+          <div
+            class="vertical-container"
+            style="padding: 1rem; width: 100%; align-items: start"
+          >
+            <h3>Rewards App</h3>
+
+            <div
+              class="vertical-container"
+              style="align-items: start; margin-top: 1rem"
+            >
+              <h4>Member Since: Aug 2021</h4>
+              <h4>Points: 7,350</h4>
+            </div>
           </div>
         </div>
       </div>
       <div class="percentile-rank-container">
         <div class="vertical-container">
-          <h2 >User ST Rating Percentile</h2>
-          <div style="position: relative; width: 300px; height: 300px;">
+          <h2>User ST Rating Percentile</h2>
+          <div style="position: relative; width: 300px; height: 300px">
             <canvas id="percentileSTRating" width="300" height="300"></canvas>
-            <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -90%); ">
+            <h1
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -90%);
+              "
+            >
               95th
             </h1>
           </div>
         </div>
 
         <div class="vertical-container">
-          <h2 >Attendance Percentile</h2>
-          <div style="position: relative; width: 300px; height: 300px;">
+          <h2>Attendance Percentile</h2>
+          <div style="position: relative; width: 300px; height: 300px">
             <canvas id="percentileAttendence" width="300" height="300"></canvas>
-            <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -90%); ">
+            <h1
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -90%);
+              "
+            >
               83rd
             </h1>
           </div>
         </div>
 
         <div class="vertical-container">
-          <h2 >Social Media Interactions Percentile</h2>
-          <div style="position: relative; width: 300px; height: 300px;">
-            <canvas id="percentileSocialInteractions" width="300" height="300"></canvas>
-            <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -90%); ">
+          <h2>Social Media Interactions Percentile</h2>
+          <div style="position: relative; width: 300px; height: 300px">
+            <canvas
+              id="percentileSocialInteractions"
+              width="300"
+              height="300"
+            ></canvas>
+            <h1
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -90%);
+              "
+            >
               45th
             </h1>
           </div>
         </div>
-        
       </div>
     </div>
   </div>

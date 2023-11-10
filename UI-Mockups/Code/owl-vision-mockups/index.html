@@ -9,6 +9,35 @@
     <title>Owl Vision</title>
   </head>
   <body>
+    <div id="overlay" style="display: none"></div>
+    <div id="popupCard" style="display: none">
+      <div
+        class="vertical-container"
+        style="
+          justify-content: center;
+          align-items: center;
+
+          text-align: center;
+        "
+      >
+        <h1>Welcome to Owl Vision</h1>
+        <img
+          src="./public/KS Logo.png"
+          alt="user"
+          width="200"
+          height="200"
+          style="margin-top: 2rem"
+        />
+        <h4 style="margin-top: 3rem">
+          Please note that all data is fictitious and is not indicative of the
+          final product.
+        </h4>
+        <button id="dismissButton" style="align-self: center; margin-top: 50px">
+          Ok!
+        </button>
+      </div>
+    </div>
+
     <div class="home-page">
       <div class="top-bar">
         <!--Hamburger button-->
@@ -18,8 +47,8 @@
           <div class="bar"></div>
         </div>
         <div class="title-container">
-          <div class="horizontal-container" style="gap: 1rem;">
-            <p style="color: black;">OWL Vision</p>
+          <div class="horizontal-container" style="gap: 1rem">
+            <p style="color: black">OWL Vision</p>
             <img src="./public/KS Logo.png" alt="user" width="50" height="50" />
           </div>
         </div>
@@ -46,9 +75,11 @@
           >
             <h3>Acutal Attendance Comparisons</h3>
             <canvas id="aacLineChart"></canvas>
-            
-            
-            <div class="horizontal-container" style="gap: 1rem; margin-top: 15px;">
+
+            <div
+              class="horizontal-container"
+              style="gap: 1rem; margin-top: 15px"
+            >
               <div class="vertical-container">
                 <h3>Options</h3>
                 <select id="aacOptionsDropdown"></select>
@@ -193,13 +224,16 @@
                 <button>Refresh</button>
                 <a href="./public/ksu_report.xlsx" download="ksu_report.xlsx">
                   <button type="button">Download Report</button>
-              </a>
+                </a>
               </div>
             </div>
           </div>
         </div>
         <div class="overall-user-scores-container">
-          <canvas id="scoreChart" width="400" height="400"></canvas>
+          <div class="vertical-container">
+            <h3>Population ST Ratings</h3>
+            <canvas id="scoreChart" width="400" height="400"></canvas>
+          </div>
         </div>
       </div>
     </div>
