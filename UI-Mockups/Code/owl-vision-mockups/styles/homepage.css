@@ -1,3 +1,70 @@
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Adjust color and opacity for desired dimming */
+  z-index: 999; /* Below the popup card but above other content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#popupCard {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #242424;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  border-radius: 25px;
+
+  max-width: 400px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#overlay,
+#popupCard {
+  animation-duration: 0.5s; /* Adjust as needed */
+  animation-fill-mode: forwards;
+}
+
+#overlay.fade-in,
+#popupCard.fade-in {
+  animation-name: fadeIn;
+}
+
+#overlay.fade-out,
+#popupCard.fade-out {
+  animation-name: fadeOut;
+}
+
 .home-page {
   width: 100%;
   text-align: center;
